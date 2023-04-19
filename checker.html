@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Check Phone Numbers for Spam</title>
+  </head>
+  <body>
+    <p>Results:</p>
+    <div id="results"></div>
+    <script>
+      const options = {
+        method: 'GET',
+        headers: {
+          'API-KEY': 'YOU-WILL-GET-FROM-US',
+          'H0ST': 'YOU-WILL-GET-FROM-US'
+        }
+      };
+      
+      const numbers = [
+        {phone: '972528323051', countryCode: 'IL'},
+        {phone: '525585264033', countryCode: 'MX'},
+{phone: '11111111111', countryCode: 'US'},
+ {phone: '2222222222', countryCode: 'UK'},
+  {phone: '3333333333', countryCode: 'UK'},
+  {phone: '4444444444', countryCode: 'IL'},  
+{phone: '55555555555', countryCode: 'ES'}, 
+
+
+
+
+
+      ];
+      
+      const resultsDiv = document.getElementById('results');
+      
+      function checkSpamInfo(phoneNumber) {
+        const url = `https://truecaller4.p.rapidapi.com/api/v1/getDetails?phone=${phoneNumber.phone}&countryCode=${phoneNumber.countryCode}`;
+        return fetch(url, options)
+          .then(response => response.json())
+          .then(response => {
+            if (JSON.stringify(response).toLowerCase().includes('spam')) {
+              return `The number ${phoneNumber.phone} is SPAM`;
+            } else {
+              return `This number ${phoneNumber.phone} is not spam`;
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            return `Error checking spam info for ${phoneNumber.phone}`;
+          });
+      }
+      
+      Promise.all(numbers.map(checkSpamInfo))
+        .then(results => {
+          resultsDiv.innerHTML = results.join('<br>');
+        });
+    </script>
+  </body>
+</html>
