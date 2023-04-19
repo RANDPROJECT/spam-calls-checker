@@ -26,15 +26,12 @@
 {phone: '55555555555', countryCode: 'ES'}, 
 
 
-
-
-
       ];
       
       const resultsDiv = document.getElementById('results');
       
       function checkSpamInfo(phoneNumber) {
-        const url = `https://truecaller4.p.rapidapi.com/api/v1/getDetails?phone=${phoneNumber.phone}&countryCode=${phoneNumber.countryCode}`;
+        const url = `https://truecaller4.p.bot.com/api/v1/getDetails?phone=${phoneNumber.phone}&countryCode=${phoneNumber.countryCode}`;
         return fetch(url, options)
           .then(response => response.json())
           .then(response => {
